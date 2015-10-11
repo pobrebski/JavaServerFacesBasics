@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title></title>
+</h:head>
+<h:body>
+<h3 style="margin-top: 0"></h3>
+<div class="ui-grid ui-grid-responsive">
+<h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0"></h3>
+    <p:tabView>
+        <p:tab title="MAIN MENU">
+            <h:panelGrid columns="2" cellpadding="10">
+             <p:button value="Anuluj" outcome="index"/>
+                <h:outputText value="Wybierz którąś z opcji z listy ponizej lub uzyj MENU: samochody by edytować bazę samochodów lub MENU: uzytkownicy by edytowac dane uzytkownikow" />                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: UŻYTKOWNICY">
+            <h:panelGrid columns="2" cellpadding="10">
+            <p:commandButton value="NOWY UZYTKOWNIK" action="#{userManager.newUser()}" />
+                <h:outputText value="Wybierz opcję dodania lub edycji danych uzytkownika" />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: SAMOCHODY">
+            <h:panelGrid columns="2" cellpadding="10"> 
+          <p:commandButton value="NOWY SAMOCHÓD" action="#{carManager.newCar()}"/>
+                <h:outputText
+                    value="Wybierz opcję dodania samochodu lub edycji" />
+               
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:form>
+   
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+    
+        			<h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Wprowadź dane tankowania</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="litre" value="litry:" />
+						<h:inputText id="litre" value="#{refuelingEdit.litre}" />
+						<h:outputLabel for="kilometers" value="kilometry:" />
+						<h:inputText id="kilometers" value="#{refuelingEdit.kilometers}" />
+						
+					</p:panelGrid>
+					<h:messages />
+					<p:commandButton value="Zapisz" action="#{refuelingEdit.saveData()}" 
+					style="margin-right: 1em;"/>
+					<p:button value="Anuluj" outcome="index"/>
+				</p:fieldset>
+			</h:form>
+        </div>
+        
+        <h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Dane uzytkownika samochodu</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<h:outputText for="name" value="imię:" />
+						<h:outputText id="name" value="#{refuelingEdit.user.name}" />
+						<h:outputLabel for="surname" value="nazwisko:" />
+						<h:outputText id="surname" value="#{refuelingEdit.user.surname}" />
+						<h:outputLabel for="carname" value="nazwa samochodu:" />
+						<h:outputText id="carname" value="#{refuelingEdit.car.carname}" />
+						<h:outputLabel for="carmake" value="marka" />
+						<h:outputText id="carmake" value="#{refuelingEdit.car.carrmake}" />
+					</p:panelGrid>
+					<h:messages />
+				</p:fieldset>
+			</h:form>
+        
+
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-2">
+       
+        </div>
+
+ 
+</h:body>
+</html>

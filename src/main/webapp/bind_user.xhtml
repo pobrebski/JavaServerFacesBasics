@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title>Binding</title>
+</h:head>
+<h:body>
+<h3 style="margin-top: 0">Lista powiązań</h3>
+<div class="ui-grid ui-grid-responsive">
+<h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0"></h3>
+    <p:tabView>
+        <p:tab title="MAIN MENU">
+            <h:panelGrid columns="2" cellpadding="10">
+             <p:button value="Anuluj" outcome="index"/>
+                <h:outputText value="Wybierz którąś z opcji z listy ponizej lub uzyj MENU: samochody by edytować bazę samochodów lub MENU: uzytkownicy by edytowac dane uzytkownikow" />                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: UŻYTKOWNICY">
+            <h:panelGrid columns="2" cellpadding="10">
+            <p:commandButton value="NOWY UZYTKOWNIK" action="#{userManager.newUser()}" />
+                <h:outputText value="Wybierz opcję dodania lub edycji danych uzytkownika" />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: SAMOCHODY">
+            <h:panelGrid columns="2" cellpadding="10"> 
+          <p:commandButton value="NOWY SAMOCHÓD" action="#{carManager.newCar()}"/>
+                <h:outputText
+                    value="Wybierz opcję dodania samochodu lub edycji" />
+               
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:form>
+    </div>
+   
+ <div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+    <div class="ui-grid-col-12">
+    <h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Dodajesz samochód dla uzytkownika</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="cc-name" value="imię:" />
+						<h:outputText id="cc-name" value="#{bindEdit.user.name}" />
+						<p:outputLabel for="cc-surname" value="nazwisko:" />
+						<h:outputText id="cc-surname" value="#{bindEdit.user.surname}" />
+					</p:panelGrid>
+					<h:messages />
+					
+				</p:fieldset>
+			</h:form>
+    
+    </div>    
+    </div>
+    </div>
+ 
+<div class="ui-grid ui-grid-responsive">
+
+       
+       
+        <div class="ui-grid-col-12">
+        <h:form>
+        <p:dataTable value="#{bindEdit.cars}"
+            selection="#{bindEdit.compared}" var="car"
+            rowKey="#{car.idcar}">
+             <p:column>
+                #{car.idcar}
+            </p:column>
+            <p:column>
+                #{car.carname}
+            </p:column>
+             <p:column>
+                #{car.carrmake}
+            </p:column>
+             <p:column>
+                #{car.carregistrationyear}
+            </p:column>
+            <p:column selectionMode="multiple" style="width:8%" />
+        </p:dataTable>
+        <p:commandButton value="send" action="#{bindEdit.saveData()}" />
+    </h:form>
+        </div>
+    </div>
+
+
+</h:body>
+</html>

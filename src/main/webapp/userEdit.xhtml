@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:q="http://primefaces.org/ui" >
+<h:head>
+<title>Jedit user</title>
+</h:head>
+<h:body style="background-color: #aaa; min-width: 800px; margin: 0;">
+
+	<div style="margin: 1em; background-color: #fff;">
+
+		<div style="padding: 1em; margin-bottom: 1em; border-radius: 0.2em;">
+			<h:form>
+				<fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Edycja rekordu</legend>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="p-name" value="imie:" />
+						<h:inputText id="p-name" value="#{userEdit.name}" />
+						<h:outputLabel for="p-surname" value="nazwisko:" />
+						<h:inputText id="p-surname" value="#{userEdit.surname}" />						
+						<h:outputLabel for="p-permanent" value="trwały:" />
+						<h:inputText id="p-permanent" value="#{userEdit.permanent}" />
+						<h:outputLabel for="p-temporary" value="temporary:" />
+						<h:inputText id="p-temporary" value="#{userEdit.temporary}" />
+						
+					</h:panelGrid>
+					<h:messages />
+					<h:commandButton value="Zapisz" action="#{userEdit.saveData()}" 
+					style="margin-right: 1em;"/>
+					<h:commandButton value="Zapisz BIND" action="#{userEdit.saveBindData()}" 
+					style="margin-right: 1em;"/>
+					<h:button value="Anuluj" outcome="userList"/>
+				</fieldset>
+			</h:form>
+		</div>
+<div>
+	<q:dataTable var="caruser" value="#{userList.getFullList()}">
+<q:column>
+<f:facet name="header">
+<h:outputText value="ID" />
+</f:facet>
+<h:outputText value="#{caruser.idcaruser}" />
+<f:param name="p" value="#{caruser.getIdcaruser}"/>
+</q:column>
+<q:column>
+<f:facet name="header">
+<h:outputText value="NAME" />
+</f:facet>
+<h:outputText  value="#{caruser.name}"/>
+
+</q:column>
+<q:column>
+<f:facet name="header">
+<h:outputText value="Surname" />
+</f:facet>
+<h:outputText value="#{caruser.surname}" />
+</q:column>
+<q:column>
+<q:dataTable value="#{caruser.carbinds}" var="car">
+					<q:column>
+					<f:facet name="header">
+						<h:outputText value="bind" />
+					</f:facet>
+					<h:outputText value="#{carbind.idcarbind}">
+						</h:outputText>
+				</q:column>
+				</q:dataTable>
+					
+</q:column>
+<!-- more collumns --> 
+
+</q:dataTable>
+	</div>	
+
+
+
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title>Binding</title>
+</h:head>
+<h:body>
+<h3 style="margin-top: 0"></h3>
+<div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+
+    </div>
+</div>
+ 
+
+<div class="ui-grid ui-grid-responsive">
+
+      <h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0"></h3>
+    <p:tabView>
+        <p:tab title="MAIN MENU">
+            <h:panelGrid columns="2" cellpadding="10">
+             <p:button value="Anuluj" outcome="index"/>
+                <h:outputText value="Wybierz ANULUJ by wrócić do okna głównego, wpisz dane i zatwierdź by dodać uzytkownika, wybierz uzytkownika z listy ponizej by edytować jego dane" />                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: UŻYTKOWNICY">
+            <h:panelGrid columns="2" cellpadding="10">
+            <p:commandButton value="NOWY UZYTKOWNIK" action="#{userManager.newUser()}" />
+                <h:outputText value="Wybierz opcję dodania lub edycji danych uzytkownika" />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: SAMOCHODY">
+            <h:panelGrid columns="2" cellpadding="10"> 
+          <p:commandButton value="NOWY SAMOCHÓD" action="#{carManager.newCar()}"/>
+                <h:outputText
+                    value="Wybierz opcję dodania samochodu lub edycji" />
+               
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:form>
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+
+       
+                       <h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>OKNO WPROWADZANIA NOWEGO/EDYCJI INSTNIEJACEGO UŻYTKOWNIKA</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="t-name" value="imie:" />
+						<p:inputText id="t-name" value="#{userEdit.name}" />
+						<p:outputLabel for="t-surname" value="nazwisko:" />
+						<p:inputText id="t-surname" value="#{userEdit.surname}" />						
+					</p:panelGrid>
+					<p:messages />
+					<p:commandButton value="Zapisz" action="#{userEdit.saveData()}" 
+					style="margin-right: 1em;"/>
+					<p:commandButton value="Zapisz+Dodaj samochód" action="#{userEdit.saveBindData()}" 
+					style="margin-right: 1em;"/>
+				</p:fieldset>
+			</h:form>
+        
+         <p:dataTable value="#{userManager.fullList}" var="caruser"
+				cellpadding="5" border="1" cellspacing="0">
+				<p:column>
+<f:facet name="header">
+<h:outputText value="IDUSER" />
+</f:facet>
+<h:outputText value="#{caruser.idcaruser}" />
+<f:param name="t" value="#{caruser.idcaruser}"/>
+</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Imie" />
+					</f:facet>
+					<h:outputText value="#{caruser.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nazwisko" />
+					</f:facet>
+					<h:outputText value="#{caruser.surname}" />
+				</p:column>
+				<p:column>
+				<f:facet name="header">
+						<h:outputText value="EDYTUJ UŻYTKOWNIKA" />
+					</f:facet>
+					
+					<p:button value="edytuj" outcome="userman">
+						<f:param name="t" value="#{caruser.idcaruser}" />
+					</p:button>
+					
+				</p:column>
+				<p:column>
+				<f:facet name="header">
+						<h:outputText value="USUŃ UŻYTKOWNIKA" />
+					</f:facet>
+					
+					<h:form>
+						<h:commandButton value="usuń"
+							action="#{userManager.deleteUser(caruser)}" update="table" />
+					</h:form>
+				</p:column>
+			</p:dataTable>  
+        
+
+        
+
+        
+        </div>
+
+
+</h:body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title>Binding</title>
+</h:head>
+<h:body>
+<h3 style="margin-top: 0"></h3>
+<div class="ui-grid ui-grid-responsive">
+   <h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0"></h3>
+    <p:tabView>
+        <p:tab title="MAIN MENU">
+            <h:panelGrid columns="2" cellpadding="10">
+             <p:button value="Anuluj" outcome="index"/>
+                <h:outputText value="Wybierz którąś z opcji z listy ponizej lub uzyj MENU: samochody by edytować bazę samochodów lub MENU: uzytkownicy by edytowac dane uzytkownikow" />                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: UŻYTKOWNICY">
+            <h:panelGrid columns="2" cellpadding="10">
+            <p:commandButton value="NOWY UZYTKOWNIK" action="#{userManager.newUser()}" />
+                <h:outputText value="Wybierz opcję dodania lub edycji danych uzytkownika" />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: SAMOCHODY">
+            <h:panelGrid columns="2" cellpadding="10"> 
+          <p:commandButton value="NOWY SAMOCHÓD" action="#{carManager.newCar()}"/>
+                <h:outputText
+                    value="Wybierz opcję dodania samochodu lub edycji" />
+               
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:form>
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+        
+        <div class="ui-grid-col-6">
+ 
+<h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Dane uzytkownika</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="cc-name" value="imię:" />
+						<h:outputText id="cc-name" value="#{bindEdit.user.name}" />
+						<p:outputLabel for="cc-surname" value="nazwisko:" />
+						<h:outputText id="cc-surname" value="#{bindEdit.user.surname}" />
+					</p:panelGrid>
+					<h:messages />
+					
+				</p:fieldset>
+			</h:form>
+        </div>
+        <div class="ui-grid-col-6">
+                    <h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>dane spalania</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="refu" value="spalanie usera:" />
+						<h:outputText id="refu" value="#{bindEdit.averageuser}" />
+						<p:outputLabel for="refc" value="spalanie tego modelu:" />
+						<h:outputText id="refc" value="#{bindEdit.averagecar}" />
+						
+					</p:panelGrid>
+					<h:messages />
+					
+				</p:fieldset>
+			</h:form>
+        </div></div>
+        
+        <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+        <h:form>
+				<p:fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Dane obecnego samochodu</legend>
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel for="cc-name" value="model:" />
+						<h:outputText id="cc-name" value="#{bindEdit.car.carname}" />
+						<p:outputLabel for="cc-carname" value="marka:" />
+						<h:outputText id="cc-carname" value="#{bindEdit.car.carrmake}" />
+						<p:outputLabel for="cc-carrmake" value="data pierwszej rejestracji:" />
+						<h:outputText id="cc-carrmake" value="#{bindEdit.car.carregistrationyear}" />
+					</p:panelGrid>
+					<h:messages />
+				</p:fieldset>
+			</h:form>
+			</div>
+			<div class="ui-grid-col-6">
+			        <p:dataTable value="#{bindEdit.usercars}" var="carbind"
+				cellpadding="5" border="1" cellspacing="0">
+<f:facet name="header">
+						<h:outputText value="POZOSTAŁE SAMOCHODY UŻYTKOWNIKA" />
+					</f:facet>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="marka" />
+					</f:facet>
+					<h:outputText value="#{carbind.car.carrmake}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="model" />
+					</f:facet>
+					<h:outputText value="#{carbind.car.carname}" />
+				</p:column>
+
+				
+
+
+			</p:dataTable>
+			
+			</div>
+    </div>
+</div>
+ 
+
+</h:body>
+</html>

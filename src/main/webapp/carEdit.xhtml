@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>jedit car</title>
+</h:head>
+<h:body style="background-color: #aaa; min-width: 800px; margin: 0;">
+
+	<div style="margin: 1em; background-color: #fff;">
+
+		<div style="padding: 1em; margin-bottom: 1em; border-radius: 0.2em;">
+			<h:form>
+				<fieldset style="padding: 1em; border-radius: 0.2em;">
+					<legend>Edycja rekordu</legend>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="p-carname" value="nazwa:" />
+						<h:inputText id="p-carname" value="#{carEdit.carname}" />
+						<h:outputLabel for="p-carrmake" value="Marka:" />
+						<h:inputText id="p-carrmake" value="#{carEdit.carrmake}" />
+						<h:outputLabel for="p-carregistrationyear" value="data rejestracji:" />
+						<h:inputText id="p-carregistrationyear" value="#{carEdit.carregistrationyear}" />
+					</h:panelGrid>
+					<h:messages />
+					<h:commandButton value="Zapisz" action="#{carEdit.saveData()}" 
+					style="margin-right: 1em;"/>
+					<h:commandButton value="Zapisz BIND" action="#{carEdit.saveBindData(user)}" 
+					style="margin-right: 1em;"/>
+					<h:button value="Anuluj" outcome="index"/>
+				</fieldset>
+			</h:form>
+		</div>
+		<div>
+	<p:dataTable var="car" value="#{carList.getFullList()}">
+<p:column>
+<f:facet name="header">
+<h:outputText value="ID" />
+</f:facet>
+<h:outputText value="#{car.idcar}" />
+<f:param name="p" value="#{car.idcar}"/>
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="NAME" />
+</f:facet>
+<h:outputText  value="#{car.carname}"/>
+
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="MARKA" />
+</f:facet>
+<h:outputText value="#{car.carrmake}" />
+</p:column>
+<!-- more collumns --> 
+
+</p:dataTable>
+	</div>	
+
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title></title>
+</h:head>
+<h:body>
+<h3 style="margin-top: 0"></h3>
+<div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+       
+    </div>
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+       
+        </div>
+        <div class="ui-grid-col-2">
+  
+        </div>
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-2">
+       
+        </div>
+    </div>
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+<h:form id="form">
+             
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h3 style="margin-top:0"></h3>
+    <p:tabView>
+        <p:tab title="MAIN MENU">
+            <h:panelGrid columns="2" cellpadding="10">
+             <p:button value="Anuluj" outcome="index"/>
+                <h:outputText value="Wybierz którąś z opcji z listy ponizej lub uzyj MENU: samochody by edytować bazę samochodów lub MENU: uzytkownicy by edytowac dane uzytkownikow" />                
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: UŻYTKOWNICY">
+            <h:panelGrid columns="2" cellpadding="10">
+            <p:commandButton value="NOWY UZYTKOWNIK" action="#{userManager.newUser()}" />
+                <h:outputText value="Wybierz opcję dodania lub edycji danych uzytkownika" />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="MENU: SAMOCHODY">
+            <h:panelGrid columns="2" cellpadding="10"> 
+          <p:commandButton value="NOWY SAMOCHÓD" action="#{carManager.newCar()}"/>
+                <h:outputText
+                    value="Wybierz opcję dodania samochodu lub edycji" />
+               
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+    </h:form>
+   
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4">  
+        
+        </div>
+        <div class="ui-grid-col-4">
+
+           
+      
+        </div>
+        <div class="ui-grid-col-4">
+               
+        </div>
+    </div>
+</div>
+ 
+<div class="ui-grid ui-grid-responsive">
+    
+                <p:dataTable value="#{bindManager.list}" var="carbind"
+				cellpadding="5" border="1" cellspacing="0">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{carbind.idcarbind}" />
+					<f:param name="cc" value="#{carbind.idcarbind}"/>
+				</p:column>				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="IMIĘ UŻYTKOWNIKA" />
+					</f:facet>
+					<h:outputText value="#{carbind.caruser.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="NAZWISKO UŻYTKOWNIKA" />
+					</f:facet>
+					<h:outputText value="#{carbind.caruser.surname}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="MARKA SAMOCHODU" />
+					</f:facet>
+					<h:outputText value="#{carbind.car.carrmake}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="MODEL SAMOCHODU" />
+					</f:facet>
+					<h:outputText value="#{carbind.car.carname}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="AKCJA 1" />
+					</f:facet>
+					<h:form>			
+					<p:commandButton value="dodaj spalanie" action = "#{carManager.newRefueling(carbind)}">
+					
+					</p:commandButton></h:form>
+				</p:column>
+				<p:column>
+				<f:facet name="header">
+						<h:outputText value="AKCJA 2" />
+					</f:facet>
+				<p:button value="przeglądaj statystyki" outcome = "stats">
+						<f:param name="cc" value="#{carbind.idcarbind}" />
+					</p:button>	
+					
+				</p:column>
+				<p:column>
+				<f:facet name="header">
+						<h:outputText value="AKCJA 3" />
+					</f:facet>
+				<h:form>
+						<p:commandButton value="usuń"
+							action="#{bindManager.deleteBind(carbind)}"  />
+					
+				</h:form>
+					
+				</p:column>
+
+			</p:dataTable> 
+</div>
+ 
+
+</h:body>
+</html>

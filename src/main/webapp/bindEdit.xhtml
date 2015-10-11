@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:q="http://primefaces.org/ui">  
+ 
+  <h:head>
+	<title>Fuel Consumption Calculator</title>
+</h:head>
+<h:body>
+	<div>
+	<div>
+	<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="p-name" value="ID" />
+						<h:inputText id="p-name" value="#{binding.idcaruser}" />
+						<h:outputLabel for="p-surname" value="nazwisko:" />
+						<h:inputText id="p-surname" value="#{binding.surname}" />
+						<h:outputLabel for="p-date" value="imię:" />
+						<h:inputText id="p-date" value="#{binding.name}" />
+	</h:panelGrid>
+	</div>
+	
+	
+	<h:form style="margin-bottom:1em;">
+				<h:commandButton value="Dodaj nowy wpis"
+					action="#{bindList.newBind()}" />
+					
+			</h:form>
+	<h:form>
+					<h:button value="edytuj samochod" outcome="carEdit">
+						<f:param name="p" value="#{carEdit.idCar}" />
+					</h:button>
+					<h:commandButton value="NOWY SAMOCHÓD" action="#{carList.newCar()}"/>
+					</h:form>
+	
+					</div>
+					<div>
+	<p:dataTable var="car" value="#{bindList.getList()}">
+<p:column>
+<f:facet name="header">
+<h:outputText value="ID" />
+</f:facet>
+<h:outputText value="#{carbind.idcarbind}" />
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="IDCAR" />
+</f:facet>
+<h:outputText value="#{carbind.car}" />
+<f:param name="p" value="#{carbind.car}" />
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="IDUSER" />
+</f:facet>
+<h:outputText value="#{carbind.caruser}" />
+</p:column>
+<!-- more collumns --> 
+
+</p:dataTable>
+
+	</div>	
+					
+					<div>
+					<h:form>
+						<p:dataTable var="car" value="#{carList.getFullList()}">
+<p:column>
+<f:facet name="header">
+<h:outputText value="ID" />
+</f:facet>
+<h:outputText value="#{car.idcar}" />
+<f:param name="p" value="#{car.idcar}"/>
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="NAME" />
+</f:facet>
+<h:outputText  value="#{car.carname}"/>
+
+</p:column>
+<p:column>
+<f:facet name="header">
+<h:outputText value="MARKA" />
+</f:facet>
+<h:outputText value="#{car.carrmake}" />
+</p:column>
+<!-- more collumns --> 
+
+</p:dataTable>
+</h:form>
+<div></div>
+<h:form>
+					<q:dataTable var="caruser" value="#{userList.getFullList()}">
+<q:column>
+<f:facet name="header">
+<h:outputText value="ID" />
+</f:facet>
+<h:outputText value="#{caruser.idcaruser}" />
+<f:param name="p" value="#{caruser.getIdcaruser}"/>
+</q:column>
+<q:column>
+<f:facet name="header">
+<h:outputText value="NAME" />
+</f:facet>
+<h:outputText  value="#{caruser.name}"/>
+
+</q:column>
+<q:column>
+<f:facet name="header">
+<h:outputText value="Surname" />
+</f:facet>
+<h:outputText value="#{caruser.surname}" />
+</q:column>
+<q:column>
+<q:dataTable value="#{caruser.carbinds}" var="car">
+					<q:column>
+					<f:facet name="header">
+						<h:outputText value="bind" />
+					</f:facet>
+					<h:outputText value="#{carbind.idcarbind}">
+						</h:outputText>
+				</q:column>
+				</q:dataTable>
+					
+</q:column>
+<!-- more collumns --> 
+<p:column>
+<f:facet name="header">
+<h:outputText value="IDUSER" />
+</f:facet>
+
+<h:button value="dołóz samochod" outcome="#{carList.addCarBind(caruser)}">
+						<f:param name="r" value="#{caruser.idcaruser}" />
+					</h:button>
+<h:form>
+						<h:commandButton value="przekaz"
+							action="#{carList.addCarBind(caruser)}" />
+					</h:form>
+					
+					
+</p:column>
+
+</q:dataTable>
+					</h:form>
+					</div>
+
+</h:body>
+</html>  
