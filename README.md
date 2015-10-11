@@ -1,3 +1,3 @@
-The OpenShift `jbossas` cartridge documentation can be found at:
-
-http://openshift.github.io/documentation/oo_cartridge_guide.html#jbossas
+## Basic JSF project
+# Working on a simple MYSQL database and JBOSS server, thanks to OpenShift: http://mnemo-mnemonicpl.rhcloud.com/
+If You get 503 server error, please refresh page after 5 minutes
